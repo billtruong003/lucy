@@ -1,7 +1,7 @@
 name: docs
 on:
   push:
-    branches: [lucy-main]
+    branches: [main]
     paths: ['website/**']
   workflow_dispatch:
 

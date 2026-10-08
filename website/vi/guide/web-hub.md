@@ -107,7 +107,7 @@ Nút cạnh biểu tượng 🎤 mở bộ chọn model, gồm ba phần:
 
 | Phần | Cách chạy |
 |---|---|
-| **Claude · có tool + vault** | Chạy Claude qua Agent SDK, đủ công cụ, kèm persona và vault. Danh sách (Opus, Sonnet, Fable, Haiku) lấy từ coordinator. **Trong hub, chỉ `claude:opus` chạy Opus. Các mục Claude khác hiện đều chạy Sonnet.** |
+| **Claude · có tool + vault** | Chạy Claude qua Agent SDK, đủ công cụ, kèm persona và vault. Danh sách (Opus, Sonnet, Fable, Haiku) lấy từ coordinator. Chọn mục nào thì chạy đúng model đó (`claude:opus` → `claude-opus-5-5`, `claude:sonnet` → `claude-sonnet-5-5`, `claude:fable` → `claude-fable-5-1`, `claude:haiku` → `claude-haiku-5-5`). |
 | **Auto — router tự chọn** | Router của coordinator chọn model. Nếu hội thoại đã có phiên Claude, hoặc câu hỏi cần tool, thì giữ Claude Sonnet. Không có coordinator thì dùng Sonnet. |
 | **Lane · chat thuần** | Model bên thứ ba rẻ hơn, chạy qua coordinator (key trong `.env.llm`). Lane hỗ trợ tool sẽ chạy vòng agentic (tìm/đọc web, đọc file, bash); lane còn lại chỉ chat. Lane không giữ trạng thái, nên hub gửi kèm persona và lịch sử gần đây đã nén (ngân sách khoảng 5.000 token). |
 

@@ -21,7 +21,7 @@ You do this once during [installation](./installation). The short version:
 Don't know your user ID yet? Start the bridge, send your bot `/id`, and it replies with `chat_id=… · user_id=…`. Copy the `user_id` into `.env` and restart.
 
 ::: warning Always set LUCY_ALLOWED_USER_ID
-Lucy runs Claude with `bypassPermissions`: it reads, writes and runs commands without asking. The allow-list is the only gate. When `LUCY_ALLOWED_USER_ID` is set, messages and button presses from anyone else are dropped at the polling layer, and a stranger who reaches the handler gets `⛔ Không có quyền.`. When it is **empty**, the bot answers everyone. `/info` shows `uid=(mở!)` ("open!") in that case.
+Lucy runs Claude with `bypassPermissions`: it reads, writes and runs commands without asking. The allow-list is the only gate. When `LUCY_ALLOWED_USER_ID` is set, messages and button presses from anyone else are dropped at the polling layer, and a stranger who reaches the handler gets `⛔ Không có quyền.`. When it is **empty**, the bridge refuses to start, unless you also set `LUCY_ALLOW_ANYONE=1` (dangerous: the bot then answers everyone and `/info` shows `uid=(mở!)`, "open!").
 :::
 
 Other useful bridge settings (all in `bridge/.env`):

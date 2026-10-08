@@ -31,7 +31,7 @@ Every Claude call goes through one resolver, so `sonnet`, `opus`, `fable` and `h
 | Telegram | `/model` shows buttons. You can also type `/model opus`, `/model claude:haiku`, etc. Prefix one message with `!o ` to use Opus for just that message. See [Telegram](./telegram#picking-a-model). |
 | Web hub | The model picker in the chat input bar has a **Claude · có tool + vault** group, an **Auto** entry and a **Lane · chat thuần** group. See [Web hub](./web-hub). |
 
-In Telegram, switching between Claude models keeps the conversation; the live session changes model in place. In the hub's chat server, choosing Opus runs Opus, and any other Claude entry currently runs as Sonnet.
+In Telegram, switching between Claude models keeps the conversation; the live session changes model in place. In the hub's chat server, every Claude entry runs the model you chose: `claude:opus`, `claude:sonnet`, `claude:fable` and `claude:haiku` map to the catalog IDs `claude-opus-5-5`, `claude-sonnet-5-5`, `claude-fable-5-1` and `claude-haiku-5-5`.
 
 ## Lanes: cheap and free providers
 

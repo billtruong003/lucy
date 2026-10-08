@@ -21,7 +21,7 @@ Bước này bạn làm một lần lúc [cài đặt](./installation). Tóm t�
 Chưa biết user ID? Cứ chạy bridge, nhắn bot `/id`, bot sẽ trả `chat_id=… · user_id=…`. Chép `user_id` vào `.env` rồi restart.
 
 ::: warning Luôn đặt LUCY_ALLOWED_USER_ID
-Lucy chạy Claude với `bypassPermissions`: tự đọc, ghi file và chạy lệnh mà không hỏi lại. Allow-list là lớp chặn duy nhất. Khi `LUCY_ALLOWED_USER_ID` đã đặt, tin nhắn và nút bấm của người khác bị bỏ ngay từ tầng poll; người lạ nào lọt tới handler sẽ nhận `⛔ Không có quyền.`. Nếu biến này **để trống**, bot trả lời tất cả mọi người, và `/info` sẽ hiện `uid=(mở!)`.
+Lucy chạy Claude với `bypassPermissions`: tự đọc, ghi file và chạy lệnh mà không hỏi lại. Allow-list là lớp chặn duy nhất. Khi `LUCY_ALLOWED_USER_ID` đã đặt, tin nhắn và nút bấm của người khác bị bỏ ngay từ tầng poll; người lạ nào lọt tới handler sẽ nhận `⛔ Không có quyền.`. Nếu biến này **để trống**, bridge từ chối khởi động, trừ khi bạn đặt thêm `LUCY_ALLOW_ANYONE=1` (nguy hiểm: khi đó bot trả lời tất cả mọi người, và `/info` hiện `uid=(mở!)`).
 :::
 
 Vài biến hữu ích khác trong `bridge/.env`:

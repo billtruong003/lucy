@@ -107,7 +107,7 @@ The button next to the 🎤 icon opens the picker. It has three sections:
 
 | Section | What happens |
 |---|---|
-| **Claude · có tool + vault** | Runs Claude through the Agent SDK with full tools, the persona, and the vault as an extra directory. The list (Opus, Sonnet, Fable, Haiku) comes from the coordinator. **In the hub only `claude:opus` maps to Opus. Every other Claude entry currently runs as Sonnet.** |
+| **Claude · có tool + vault** | Runs Claude through the Agent SDK with full tools, the persona, and the vault as an extra directory. The list (Opus, Sonnet, Fable, Haiku) comes from the coordinator. Each entry runs the model you pick (`claude:opus` → `claude-opus-5-5`, `claude:sonnet` → `claude-sonnet-5-5`, `claude:fable` → `claude-fable-5-1`, `claude:haiku` → `claude-haiku-5-5`). |
 | **Auto — router tự chọn** | The coordinator's router picks a model. If the conversation already has a Claude session, or the prompt needs tools, it stays on Claude Sonnet. With no coordinator it falls back to Sonnet. |
 | **Lane · chat thuần** | Cheaper third-party models served by the coordinator (keys in `.env.llm`). Tool-capable lanes run an agentic loop (web search/fetch, read, bash); the others are plain chat. Lanes are stateless, so the hub sends the persona plus a compressed recent history (about a 5,000-token budget). |
 

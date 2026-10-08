@@ -126,7 +126,8 @@ Other agent-machine variables:
 | Variable | Default | What it does |
 |---|---|---|
 | `TELEGRAM_BOT_TOKEN` ✅ | — | Bot token from @BotFather. The bridge will not start without it. The hub and the dream cron also use it to push messages. |
-| `LUCY_ALLOWED_USER_ID` ✅ | — | Your numeric Telegram user ID. **If empty, the bot answers everyone.** Also the default target for notifications. |
+| `LUCY_ALLOWED_USER_ID` ✅ | — | Your numeric Telegram user ID. **If empty, the bridge refuses to start** (unless `LUCY_ALLOW_ANYONE=1`). Also the default target for notifications. |
+| `LUCY_ALLOW_ANYONE` | — | ⚠️ Dangerous opt-in. Set to `1` to let the bridge start with an empty `LUCY_ALLOWED_USER_ID`; the bot then answers **everyone**, with full shell access. Leave unset. |
 | `CLAUDE_BIN` | `claude` | Path to the Claude Code CLI. Use the absolute path (`which claude`), because PM2 does not pass your shell `PATH`. |
 | `LUCY_WORKDIR` | `~/lucy-workspace` | Working directory for chat sessions; downloaded photos and documents land here. |
 | `LUCY_PERSONA` | `~/lucy/bridge/persona.md` | Persona appended to Claude's system prompt. |

@@ -73,7 +73,7 @@ Một lượt chạy làm lần lượt:
 3. **Gộp trí nhớ.** Script đặt `LUCY_CONSOLIDATE=1` và `LUCY_CONSOLIDATE_APPLY=1`, nên khi đã cấu hình tìm kiếm vector (key Jina), các fact trùng hoặc lỗi thời sẽ được gộp hoặc thay thế. Trước khi áp dụng có tạo snapshot, và báo cáo được ghi vào `Brain/proposals/consolidate-<ngày>.md`.
 4. **Reindex** (tăng dần), để recall và tab Bộ não thấy các note viết trong ngày.
 5. **Heartbeat.** Một dòng thống kê trí nhớ, để bạn biết việc học vẫn còn chạy.
-6. **Báo cáo Telegram** tới `LUCY_ALLOWED_USER_ID`, nếu có `TELEGRAM_BOT_TOKEN`: báo lỗi nếu dream hỏng, tóm tắt nếu trí nhớ có thay đổi, hoặc chỉ heartbeat nếu không có gì mới.
+6. **Báo cáo Telegram** tới `LUCY_ALLOWED_USER_ID`, nếu có `TELEGRAM_BOT_TOKEN`: báo lỗi nếu dream hỏng, tóm tắt nếu trí nhớ có thay đổi, hoặc chỉ heartbeat nếu không có gì mới (tắt link preview).
 
 Script nạp `bridge/.env` và dùng `LUCY_VAULT` (mặc định `~/lucy/lucy-vault`). Chạy tay:
 

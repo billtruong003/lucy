@@ -188,7 +188,7 @@ pm2 ls             # all processes should be "online"
 If `ecosystem.config.cjs` prints a `[SECURITY]` warning, `LUCY_HUB_PASSWORD` or `AM_TOKEN` is missing.
 
 ::: tip Finding your Telegram user ID
-Send `/id` to your bot: it replies with `chat_id` and `user_id`. The bridge only answers the allowed user, so to use `/id` you need a working ID first. If you start the bridge with `LUCY_ALLOWED_USER_ID` empty, it answers **anyone**. Only do this briefly, then set the ID and restart with `pm2 delete lucy-bridge && pm2 start ecosystem.config.cjs --only lucy-bridge`.
+Send `/id` to your bot: it replies with `chat_id` and `user_id`. The bridge only answers the allowed user, so to use `/id` you need a working ID first. With `LUCY_ALLOWED_USER_ID` empty the bridge refuses to start, so get your ID from a "user info" bot first. If you really need `/id`, you can start once with `LUCY_ALLOW_ANYONE=1`, which makes the bot answer **anyone**. Only do this briefly, then remove it, set the ID and restart with `pm2 delete lucy-bridge && pm2 start ecosystem.config.cjs --only lucy-bridge`.
 :::
 
 ## 10. Put the hub behind nginx and HTTPS

@@ -188,7 +188,7 @@ pm2 ls             # mọi process phải ở trạng thái "online"
 Nếu `ecosystem.config.cjs` in cảnh báo `[SECURITY]`, nghĩa là thiếu `LUCY_HUB_PASSWORD` hoặc `AM_TOKEN`.
 
 ::: tip Tìm user ID Telegram
-Gửi `/id` cho bot: bot trả về `chat_id` và `user_id`. Bridge chỉ trả lời user được phép, nên muốn dùng `/id` thì phải có ID đúng trước. Nếu khởi động bridge với `LUCY_ALLOWED_USER_ID` để trống, bot sẽ trả lời **bất kỳ ai**. Chỉ làm vậy trong chốc lát, rồi đặt ID và khởi động lại bằng `pm2 delete lucy-bridge && pm2 start ecosystem.config.cjs --only lucy-bridge`.
+Gửi `/id` cho bot: bot trả về `chat_id` và `user_id`. Bridge chỉ trả lời user được phép, nên muốn dùng `/id` thì phải có ID đúng trước. Nếu `LUCY_ALLOWED_USER_ID` để trống, bridge từ chối khởi động, nên hãy lấy ID từ một bot "user info" trước. Nếu thật sự cần `/id`, bạn có thể khởi động một lần với `LUCY_ALLOW_ANYONE=1`, khi đó bot trả lời **bất kỳ ai**. Chỉ làm vậy trong chốc lát, rồi bỏ biến đó, đặt ID và khởi động lại bằng `pm2 delete lucy-bridge && pm2 start ecosystem.config.cjs --only lucy-bridge`.
 :::
 
 ::: info Ngôn ngữ của bot

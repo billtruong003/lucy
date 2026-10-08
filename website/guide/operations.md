@@ -183,7 +183,8 @@ If no Telegram poll succeeds for `LUCY_POLL_WATCHDOG_S` seconds (default 240), t
 |---|---|
 | `lucy-bridge` crash-loops with `KeyError: 'TELEGRAM_BOT_TOKEN'` | Token missing from `bridge/.env`. |
 | Bot replies `⛔ Không có quyền.` ("not allowed") | Your user ID doesn't match `LUCY_ALLOWED_USER_ID`. Check it with `/id`. |
-| Bot answers anyone | `LUCY_ALLOWED_USER_ID` is empty. Set it now. |
+| Bridge exits with `LUCY_ALLOWED_USER_ID chưa đặt trong bridge/.env — từ chối khởi động` | `LUCY_ALLOWED_USER_ID` is empty. Set it and restart the bridge. |
+| Bot answers anyone | `LUCY_ALLOW_ANYONE=1` is set with an empty `LUCY_ALLOWED_USER_ID`. Remove it and set the ID now. |
 | `ecosystem.config.cjs` prints `[SECURITY] LUCY_HUB_PASSWORD …` and every hub login fails | `LUCY_HUB_PASSWORD` missing from `.env.runtime`. |
 | Coordinator log: `AM_TOKEN trống — endpoint /worker KHÔNG có auth` | `AM_TOKEN` empty, often blanked by an empty `AM_TOKEN=` line in a later env file. |
 | Bridge log: `RECALL FAIL … 401` | Bridge `AM_TOKEN` differs from the coordinator's. |

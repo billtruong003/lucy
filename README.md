@@ -20,7 +20,7 @@ Long-term memory lives in a separate Markdown vault repository that you create (
 ## Quick start
 
 ```bash
-git clone -b lucy-main https://github.com/billtruong003/lucy && cd lucy
+git clone https://github.com/billtruong003/lucy && cd lucy
 (cd agent-machine && npm ci) && (cd hub/server && npm ci) && (cd hub/web && npm ci && npm run build)
 cp .env.llm.example .env.llm; cp .env.runtime.example .env.runtime
 cp agent-machine/.env.example agent-machine/.env; cp bridge/.env.example bridge/.env

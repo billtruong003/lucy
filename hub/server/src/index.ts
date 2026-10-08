@@ -17,6 +17,7 @@ import {
   promptArchitectFlagOn, sanitizeChatHistory,
 } from '../../../agent-machine/src/prompt-architect'
 import { getPromptArchitectStore } from '../../../agent-machine/src/prompt-architect-store'
+import { claudeModelId } from '../../../agent-machine/src/llm-lane'
 import { z } from 'zod'  // K2: consult_expert schema
 import { randomBytes, createHmac, createHash, timingSafeEqual } from 'node:crypto'
 import path from 'node:path'
@@ -967,7 +968,7 @@ app.post('/api/chat/stream', async (req, res) => {
       sse({ type: 'done', model }); return res.end()
     }
     // CLAUDE: stream-json (chữ chạy thật) — dùng subscription, giữ session chat.
-    const cm = model === 'claude:opus' ? 'opus' : 'sonnet'
+    const cm = claudeModelId(model) || 'sonnet'   // claude:opus|sonnet|fable|haiku → model-id thật trong catalog
     // PHASE 0: chèn khối memory liên quan vào đầu prompt (lỗi/tắt flag → '' → prompt nguyên gốc).
     const cprompt = (await recallPrefetch(prompt)) + prompt
     let out = await streamClaude(cprompt, chat.sessionId, cm, (e) => { if (!closed) sse(e) })

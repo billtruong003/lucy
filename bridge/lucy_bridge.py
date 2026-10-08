@@ -50,6 +50,9 @@ _load_env_file()
 
 TOKEN   = os.environ["TELEGRAM_BOT_TOKEN"]
 ALLOWED = str(os.environ.get("LUCY_ALLOWED_USER_ID", "")).strip()   # khóa chỉ chủ nhân
+if not ALLOWED and os.environ.get("LUCY_ALLOW_ANYONE") != "1":
+    # Agent có quyền shell: không bao giờ mở cho người lạ chỉ vì quên cấu hình.
+    sys.exit("LUCY_ALLOWED_USER_ID chưa đặt trong bridge/.env — từ chối khởi động (đặt LUCY_ALLOW_ANYONE=1 nếu thật sự muốn mở).")
 WORKDIR = os.path.expanduser(os.environ.get("LUCY_WORKDIR", "~/lucy-workspace"))
 CLAUDE  = os.environ.get("CLAUDE_BIN", "claude")
 # TRÍ NHỚ: vault = não DUY NHẤT của Lucy. Mọi claude -p PHẢI --add-dir vault, không thì Lucy mù vault

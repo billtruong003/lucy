@@ -183,7 +183,8 @@ Nếu quá `LUCY_POLL_WATCHDOG_S` giây (mặc định 240) không có lần pol
 |---|---|
 | `lucy-bridge` crash loop với `KeyError: 'TELEGRAM_BOT_TOKEN'` | Thiếu token trong `bridge/.env`. |
 | Bot trả lời `⛔ Không có quyền.` | User ID của bạn không khớp `LUCY_ALLOWED_USER_ID`. Kiểm tra bằng `/id`. |
-| Bot trả lời bất kỳ ai | `LUCY_ALLOWED_USER_ID` đang trống. Đặt ngay. |
+| Bridge thoát với `LUCY_ALLOWED_USER_ID chưa đặt trong bridge/.env — từ chối khởi động` | `LUCY_ALLOWED_USER_ID` đang trống. Đặt rồi khởi động lại bridge. |
+| Bot trả lời bất kỳ ai | Đang đặt `LUCY_ALLOW_ANYONE=1` trong khi `LUCY_ALLOWED_USER_ID` trống. Bỏ biến đó và đặt ID ngay. |
 | `ecosystem.config.cjs` in `[SECURITY] LUCY_HUB_PASSWORD …` và mọi lượt đăng nhập hub đều thất bại | Thiếu `LUCY_HUB_PASSWORD` trong `.env.runtime`. |
 | Log coordinator: `AM_TOKEN trống — endpoint /worker KHÔNG có auth` | `AM_TOKEN` rỗng, thường do một dòng `AM_TOKEN=` rỗng ở file env nạp sau. |
 | Log bridge: `RECALL FAIL … 401` | `AM_TOKEN` của bridge khác của coordinator. |

@@ -45,7 +45,7 @@ $HEARTBEAT}"
   fi
   if [ -n "$MSG" ]; then
     curl -s "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
-      -d chat_id="$LUCY_ALLOWED_USER_ID" \
+      -d chat_id="$LUCY_ALLOWED_USER_ID" -d disable_web_page_preview=true \
       --data-urlencode "text=$MSG" >/dev/null || true
   fi
 fi

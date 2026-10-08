@@ -126,7 +126,8 @@ Các biến khác của agent-machine:
 | Biến | Mặc định | Tác dụng |
 |---|---|---|
 | `TELEGRAM_BOT_TOKEN` ✅ | — | Token bot từ @BotFather. Thiếu thì bridge không khởi động. Hub và cron dream cũng dùng để đẩy tin. |
-| `LUCY_ALLOWED_USER_ID` ✅ | — | User ID Telegram dạng số của bạn. **Để trống thì bot trả lời mọi người.** Cũng là nơi nhận thông báo mặc định. |
+| `LUCY_ALLOWED_USER_ID` ✅ | — | User ID Telegram dạng số của bạn. **Để trống thì bridge từ chối khởi động** (trừ khi `LUCY_ALLOW_ANYONE=1`). Cũng là nơi nhận thông báo mặc định. |
+| `LUCY_ALLOW_ANYONE` | — | ⚠️ Tuỳ chọn nguy hiểm. Đặt `1` để bridge vẫn khởi động khi `LUCY_ALLOWED_USER_ID` trống; khi đó bot trả lời **mọi người**, kèm toàn quyền shell. Đừng đặt. |
 | `CLAUDE_BIN` | `claude` | Đường dẫn Claude Code CLI. Dùng đường dẫn tuyệt đối (`which claude`), vì PM2 không truyền `PATH` của shell. |
 | `LUCY_WORKDIR` | `~/lucy-workspace` | Thư mục làm việc của các phiên chat; ảnh và tài liệu tải về nằm ở đây. |
 | `LUCY_PERSONA` | `~/lucy/bridge/persona.md` | Persona gắn vào system prompt của Claude. |

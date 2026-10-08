@@ -31,7 +31,7 @@ Mọi lệnh gọi Claude đi qua một bộ phân giải chung: `sonnet`, `opus
 | Telegram | `/model` hiện nút bấm; hoặc gõ `/model opus`, `/model claude:haiku`… Thêm `!o ` trước một tin để dùng Opus cho riêng tin đó. Xem [Telegram](./telegram#chon-model). |
 | Web hub | Bộ chọn model ở thanh nhập chat có nhóm **Claude · có tool + vault**, mục **Auto** và nhóm **Lane · chat thuần**. Xem [Web hub](./web-hub). |
 
-Trên Telegram, đổi qua lại giữa các model Claude vẫn giữ nguyên hội thoại, vì phiên đang sống được đổi model tại chỗ. Ở server chat của hub, chọn Opus thì chạy Opus, còn chọn model Claude khác thì hiện vẫn chạy Sonnet.
+Trên Telegram, đổi qua lại giữa các model Claude vẫn giữ nguyên hội thoại, vì phiên đang sống được đổi model tại chỗ. Ở server chat của hub, chọn model Claude nào thì chạy đúng model đó: `claude:opus`, `claude:sonnet`, `claude:fable` và `claude:haiku` lần lượt ứng với ID trong catalog `claude-opus-5-5`, `claude-sonnet-5-5`, `claude-fable-5-1` và `claude-haiku-5-5`.
 
 ## Lane: provider giá rẻ và miễn phí
 

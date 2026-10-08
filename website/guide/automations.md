@@ -73,7 +73,7 @@ What one run does, in order:
 3. **Memory consolidation.** The script sets `LUCY_CONSOLIDATE=1` and `LUCY_CONSOLIDATE_APPLY=1`, so when vector search is configured (Jina key) duplicate or outdated facts are merged or superseded. A snapshot is taken before applying, and a report is written to `Brain/proposals/consolidate-<date>.md`.
 4. **Reindex** (incremental), so recall and the Bộ não tab see notes written that day.
 5. **Heartbeat.** One line of memory stats, so you can tell learning is still alive.
-6. **Telegram report** to `LUCY_ALLOWED_USER_ID`, if `TELEGRAM_BOT_TOKEN` is set: an error message if dream failed, a summary if memory changed, or only the heartbeat if nothing was new.
+6. **Telegram report** to `LUCY_ALLOWED_USER_ID`, if `TELEGRAM_BOT_TOKEN` is set: an error message if dream failed, a summary if memory changed, or only the heartbeat if nothing was new (link previews off).
 
 The script loads `bridge/.env` and uses `LUCY_VAULT` (default `~/lucy/lucy-vault`). To run it by hand:
 
