@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  typecheck:
+    name: TypeScript Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: |
+            agent-machine/package-lock.json
+            hub/server/package-lock.json
+            hub/web/package-lock.json
+
+      - name: Install agent-machine deps
+        run: npm ci
+        working-directory: agent-machine
+
+      - name: Typecheck agent-machine
+        run: npm run typecheck
+        working-directory: agent-machine
+
+      - name: Install hub/server deps
+        run: npm ci
+        working-directory: hub/server
+
+      - name: Typecheck hub/server
+        run: npm run typecheck
+        working-directory: hub/server
+
+      - name: Install hub/web deps
+        run: npm ci
+        working-directory: hub/web
+
+      - name: Typecheck hub/web
+        run: npx tsc --noEmit
+        working-directory: hub/web
+
+  smoke:
+    name: Smoke Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: agent-machine/package-lock.json
+
+      - name: Install deps
+        run: npm ci
+        working-directory: agent-machine
+
+      - name: Run smoke tests
+        run: npm run smoke
+        working-directory: agent-machine
+
+      - name: Gen model catalog (F4) + integrity
+        run: npm run gen:catalog && npm run smoke:catalog
+        working-directory: agent-machine
+
+      - name: Smoke — engine triage/routing/token-guard
+        run: npm run smoke:triage && npm run smoke:routing && npm run smoke:token-guard
+        working-directory: agent-machine
+
+      - name: Smoke — persona registry (K4 CRUD/sanitize)
+        run: npm run smoke:personas
+        working-directory: agent-machine
+
+      - name: Smoke — E2E HTTP (coordinator↔worker↔gate, no API key)
+        run: npm run smoke:e2e-http
+        working-directory: agent-machine

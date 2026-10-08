@@ -1,0 +1,511 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ══ DESIGN SYSTEM — "Lucy Cockpit v2" (2026-07-03) ══════════════════════════
+   NGUỒN DUY NHẤT của token. 3 tầng: PRIMITIVE → SEMANTIC → (legacy alias).
+   tailwind.config.js trỏ vào CÙNG các biến này (hết fork). Component chỉ nên
+   dùng SEMANTIC (surface / text / accent / border), primitive KHÔNG dùng trực tiếp. */
+:root {
+  /* ═══ TIER 1 — PRIMITIVES (raw, đừng dùng thẳng ở component) ═══ */
+  /* HUD graphite ramp (near-black warm-neutral, KHÔNG navy) — thang độ sáng cho elevation.
+     Giữ tên --blue-* để semantic layer cascade; giá trị đã đổi sang graphite Territory/JARVIS. */
+  --blue-950:#080a0d; --blue-900:#0d1014; --blue-850:#12161c;
+  --blue-800:#1a2029; --blue-750:#222b36; --blue-700:#2c3641;
+  /* accent channels — "R G B" (space) cho Tailwind rgb(var/<alpha>); + comma cho CSS rgba() */
+  --cyan-ch:56 208 255;    --cyan-rgb:56, 208, 255;
+  --gold-ch:255 157 50;    --gold-rgb:255, 157, 50;
+  --grn-ch:95 227 154;     --grn-rgb:95, 227, 154;
+  --rose-ch:251 113 133;   --rose-rgb:251, 113, 133;
+  --amber-ch:255 180 84;
+  --violet-ch:183 140 255;
+  --orange-ch:255 157 92;
+  --sky-ch:95 168 255;
+  --teal-ch:53 212 192;
+  /* text ramp */
+  --ink-ch:233 239 248;    /* #e9eff8 primary */
+  --ink2-ch:174 191 212;   /* #aebfd4 secondary */
+  --ink3-ch:126 144 167;   /* #7e90a7 muted (min chữ đọc) */
+  --ink4-ch:81 96 116;     /* #516074 disabled */
+  --white-rgb:255, 255, 255;
+
+  /* ═══ TIER 2 — SEMANTICS (component DÙNG mấy cái này) ═══ */
+  /* surface ladder — elevation = độ sáng, không phải shadow */
+  --surface-canvas: var(--blue-950);   /* nền app */
+  --surface-1: var(--blue-900);        /* sidebar/header/tab bar */
+  --surface-2: var(--blue-850);        /* card/panel nội dung — 1 card DUY NHẤT */
+  --surface-3: var(--blue-800);        /* input/nested/hover/popover */
+  --surface-4: var(--blue-750);        /* overlay: modal/drawer/palette/toast */
+  --border-subtle: rgb(120 170 200 / 0.09);   /* divider trong 1 surface */
+  --border-default: rgb(120 170 200 / 0.14);  /* viền card mặc định */
+  --border-strong: rgb(120 170 200 / 0.30);   /* viền active/focus */
+  --text-primary: rgb(var(--ink-ch));
+  --text-secondary: rgb(var(--ink2-ch));
+  --text-muted: rgb(var(--ink3-ch));
+  --text-disabled: rgb(var(--ink4-ch));
+  --accent: rgb(var(--cyan-ch));       /* tương tác: stroke/ring/link/CTA */
+  --accent-hover:#5fe6ff;
+  --on-accent:#061018;                 /* chữ tối trên nền cyan đặc */
+  --value: rgb(var(--gold-ch));        /* tiền/live/giá trị — semantic, không decor */
+  --success: rgb(var(--grn-ch));
+  --warning: rgb(var(--amber-ch));
+  --danger: rgb(var(--rose-ch));       /* 1 danger DUY NHẤT */
+  /* data-viz palette (gom hex sprawl về đây) */
+  --viz-1:#3fd3ff; --viz-2:#5fe39a; --viz-3:#f5b54a; --viz-4:#ff9d5c;
+  --viz-5:#b78cff; --viz-6:#fb7185; --viz-7:#5fa8ff; --viz-8:#35d4c0;
+  /* glow — decor CÓ KỶ LUẬT, chỉ CTA/hero/focus */
+  --glow-accent: 0 0 20px rgb(var(--cyan-ch) / 0.25);
+  --glow-value: 0 0 20px rgb(var(--gold-ch) / 0.22);
+  /* elevation shadow (dark-tuned) */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+  --shadow-md: 0 6px 20px rgba(0,0,0,.45);
+  --shadow-lg: 0 16px 48px rgba(0,0,0,.55);
+  /* radius scale */
+  --radius-sm:8px; --radius-md:12px; --radius-lg:16px; --radius-xl:20px;
+  /* spacing (base 4px — Tailwind spacing đã map) */
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-6:24px; --space-8:32px;
+  /* z-index: sidebar < overlay < modal < toast */
+  --z-sidebar:100; --z-overlay:200; --z-modal:300; --z-toast:400;
+
+  /* ═══ LEGACY ALIASES — tên cũ → semantic mới. Giữ app chạy trong lúc migrate.
+        (Phase sau sẽ codemod dần về semantic rồi bỏ mấy alias này.) ═══ */
+  --bg: var(--surface-canvas);
+  --panel: var(--surface-1);
+  --panel2: var(--surface-2);
+  --surface-card-hi: var(--surface-2);
+  --surface-card-lo: var(--surface-2);
+  --surface-tabs: var(--surface-1);
+  --surface-input: var(--surface-3);
+  --code-bg: var(--blue-950);
+  --line: var(--border-default);
+  --cyan: var(--accent);
+  --cyan-light:#7fe3ff; --cyan-code:#9fe7ff; --cyan-hi:#5fe6ff; --cyan-lo:#2bb6e6;
+  --cyan-hover-hi:#74ecff; --cyan-hover-lo:#38c2ef;
+  --grn: var(--success);
+  --gold: var(--value); --gold-hi:#ffca6b; --gold-lo:#e09a2c;
+  --pink:#ff5d9e; --rose: var(--danger); --red: var(--danger); --red-light:#ff8a8a; --red-rgb:var(--rose-rgb);
+  --glass-bg: rgb(21 33 52 / 0.55); --glass-bg-hi: rgb(29 44 69 / 0.62);
+  --glass-border: rgb(140 180 220 / 0.12); --glass-blur:14px;
+  --glass-solid: var(--surface-2); --glass-solid-hi: var(--surface-3);
+  --ink: var(--text-primary); --ink-subtle: var(--text-secondary); --inkdim: var(--text-secondary);
+  --inkfaint: var(--text-muted); --ink-em: var(--text-secondary);
+  --ink-bright:#eafaff; --ink-white:#ffffff; --ink-dark: var(--on-accent);
+  --shadow-card: rgba(0,0,0,0.40);
+}
+
+/* ── Reset ─────────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 600px at 70% -10%, rgba(var(--cyan-rgb),0.06), transparent 60%),
+    radial-gradient(900px 500px at 0% 110%,  rgba(var(--grn-rgb),0.05),  transparent 55%),
+    var(--bg);
+  color: var(--ink);
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+/* HUD scanline overlay — mảnh, toàn màn; tắt khi reduce-fx / reduced-transparency */
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:1;
+  background:repeating-linear-gradient(0deg, transparent 0 3px, rgba(0,0,0,.055) 3px 4px);
+  opacity:.5;
+}
+html.reduce-fx body::after{ display:none; }
+@media (prefers-reduced-transparency: reduce){ body::after{ display:none; } }
+
+/* ── S1/U0: A11Y SWITCHES — reduced-motion · transparency · contrast ──────── */
+/* Nguyên tắc (R1): no-motion-first, glass có lối thoát đặc, contrast nâng được.
+   3 nguồn: media-query hệ thống + class .reduce-fx (toggle thủ công ở Settings). */
+
+/* helper: gom cả 2 trigger (OS prefers-reduced-motion HOẶC html.reduce-fx) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+html.reduce-fx *, html.reduce-fx *::before, html.reduce-fx *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Transparency: thay glass/blur bằng nền đặc (đọc tốt + nhẹ GPU client yếu) */
+@media (prefers-reduced-transparency: reduce) {
+  :root { --glass-bg: var(--glass-solid); --glass-bg-hi: var(--glass-solid-hi); }
+}
+html.reduce-fx { --glass-bg: var(--glass-solid); --glass-bg-hi: var(--glass-solid-hi); }
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass, .toast, [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+html.reduce-fx .glass,
+html.reduce-fx .toast,
+html.reduce-fx [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Contrast: viền rõ + chữ phụ sáng hơn để đạt tương phản ở điều kiện xấu */
+@media (prefers-contrast: more) {
+  :root {
+    --line: rgba(127,179,214,0.45);
+    --glass-border: rgba(120,200,255,0.32);
+    --inkfaint: #b4c6d8;
+    --inkdim: #c4d6e6;
+  }
+}
+html.reduce-fx {
+  --line: rgba(127,179,214,0.34);
+  --glass-border: rgba(120,200,255,0.24);
+}
+
+/* ── S5/E4.3: A11Y — focus-visible ring (chỉ bàn phím, chuột không hiện) ──── */
+/* nút icon-only + tab + switch + ô tương tác: ring cyan rõ khi tab tới bằng keyboard */
+:focus-visible {
+  outline: 2px solid rgba(var(--cyan-rgb), 0.9);
+  outline-offset: 2px;
+}
+.btn:focus-visible,
+.tab-btn:focus-visible,
+.switch:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid rgba(var(--cyan-rgb), 0.9);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+/* input/textarea đã có box-shadow ring riêng → không chồng outline */
+.input:focus-visible, textarea:focus-visible { outline: none; }
+@media (prefers-contrast: more) {
+  :focus-visible { outline-color: var(--cyan-hi); outline-width: 3px; }
+}
+
+/* screen-reader-only (nhãn cho nút icon khi cần text ẩn) */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* ── Scrollbars ─────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-thumb { background: rgba(var(--cyan-rgb),0.22); border-radius: 9px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(var(--cyan-rgb),0.40); }
+::-webkit-scrollbar-track { background: transparent; }
+* { scrollbar-width: thin; scrollbar-color: rgba(var(--cyan-rgb),0.22) transparent; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Animations ─────────────────────────────────────────────────────────── */
+@keyframes lucy-pulse { 0%,100% { transform: scale(0.92); opacity: 0.7 } 50% { transform: scale(1.1); opacity: 1 } }
+@keyframes lucy-spin  { to { transform: rotate(360deg); } }
+@keyframes brain-spike { 0%,100% { opacity: 0.18 } 50% { opacity: 0.85 } }
+@keyframes brain-flow  { to { stroke-dashoffset: -16; } }
+/* T1/U0 Jarvis hero: vòng HUD xoay + lõi arc-reactor thở */
+@keyframes hud-spin     { to { transform: rotate(360deg); } }
+@keyframes hud-spin-rev { to { transform: rotate(-360deg); } }
+@keyframes arc-breathe  { 0%,100% { opacity: 0.65; transform: scale(0.97) } 50% { opacity: 1; transform: scale(1.04) } }
+
+/* ── Components ─────────────────────────────────────────────────────────── */
+@layer components {
+
+  /* Layout typography helpers */
+  .display { font-family: "Space Grotesk", sans-serif; letter-spacing: -0.01em; }
+  .mono { font-family: "Share Tech Mono", ui-monospace, monospace; }
+  /* T1/U0: SỐ/token/data → JetBrains Mono (tabular, dễ canh cột) */
+  .num { font-family: "JetBrains Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+  /* ── T1/U0: GLASS panel (nền glass-minimalism) ─────────────────────────── */
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    box-shadow: 0 8px 30px rgba(0,0,0,0.38);
+  }
+  .glass-hi { background: var(--glass-bg-hi); }
+  /* viền glow nhẹ khi hover (work area calm) */
+  .glass-hover { transition: border-color 0.18s, box-shadow 0.18s; }
+  .glass-hover:hover {
+    border-color: rgba(var(--cyan-rgb),0.32);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.42), 0 0 0 1px rgba(var(--cyan-rgb),0.10);
+  }
+  .glass-gold:hover {
+    border-color: rgba(var(--gold-rgb),0.34);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.42), 0 0 0 1px rgba(var(--gold-rgb),0.12);
+  }
+
+  /* ── T1/U0: PROGRESSIVE DISCLOSURE — hover-reveal ──────────────────────── */
+  /* mặc định ẩn mềm, cha cần .reveal-host (group); hiện khi hover (desktop). */
+  .reveal-host .hover-reveal {
+    opacity: 0;
+    transition: opacity 0.16s ease, transform 0.16s ease;
+    transform: translateY(-1px);
+  }
+  .reveal-host:hover .hover-reveal,
+  .reveal-host:focus-within .hover-reveal { opacity: 1; transform: none; }
+  /* mobile / touch (no hover) → hiện sẵn, không giấu sau hover bất khả thi */
+  @media (hover: none) {
+    .reveal-host .hover-reveal { opacity: 1; transform: none; }
+  }
+
+  /* ── T1/U0: JARVIS hero helpers (arc-reactor + vòng HUD) ───────────────── */
+  .arc-reactor {
+    border-radius: 999px;
+    background: radial-gradient(circle at 50% 50%,
+      rgba(var(--cyan-rgb),0.55) 0%, rgba(var(--cyan-rgb),0.16) 42%, transparent 70%);
+    box-shadow: 0 0 28px rgba(var(--cyan-rgb),0.45), inset 0 0 18px rgba(var(--cyan-rgb),0.30);
+    animation: arc-breathe 3.4s ease-in-out infinite;
+  }
+  .hud-ring {
+    border-radius: 999px;
+    border: 1px solid rgba(var(--cyan-rgb),0.28);
+    box-shadow: 0 0 12px rgba(var(--cyan-rgb),0.12);
+    animation: hud-spin 18s linear infinite;
+  }
+  .hud-ring-rev { animation: hud-spin-rev 26s linear infinite; }
+  .hud-ring-gold { border-color: rgba(var(--gold-rgb),0.30); box-shadow: 0 0 12px rgba(var(--gold-rgb),0.12); }
+
+  /* Card — 1 primitive nội dung HUD: surface-2, viền mảnh, radius nhỏ (HUD ít bo), + góc bracket cyan */
+  .card {
+    position: relative;
+    background: var(--surface-2);
+    border: 1px solid var(--border-default);
+    border-radius: 4px;
+    box-shadow: var(--shadow-sm);
+  }
+  /* corner brackets HUD ở 2 góc chéo — mảnh, không noise; tắt khi reduce-fx cho nhẹ */
+  .card::before, .card::after {
+    content:""; position:absolute; width:9px; height:9px; pointer-events:none;
+    border-color: rgb(var(--cyan-ch) / 0.55);
+  }
+  .card::before { top:-1px; left:-1px; border-top:1.5px solid; border-left:1.5px solid; border-color: inherit; }
+  .card::after  { bottom:-1px; right:-1px; border-bottom:1.5px solid; border-right:1.5px solid; }
+  .card::before { border-top:1.5px solid rgb(var(--cyan-ch)/0.5); border-left:1.5px solid rgb(var(--cyan-ch)/0.5); }
+  .card::after  { border-bottom:1.5px solid rgb(var(--cyan-ch)/0.5); border-right:1.5px solid rgb(var(--cyan-ch)/0.5); }
+  html.reduce-fx .card::before, html.reduce-fx .card::after { display:none; }
+  .card-raise { transition: border-color .16s, box-shadow .16s, background .16s; }
+  .card-raise:hover { border-color: var(--border-strong); background: var(--surface-3); box-shadow: var(--shadow-md); }
+
+  /* ── HUD frame: góc bracket cyan/amber (Territory/JARVIS) ── */
+  .hud-frame { position: relative; }
+  .hud-frame::before, .hud-frame::after {
+    content:""; position:absolute; width:12px; height:12px; pointer-events:none; z-index:1;
+  }
+  .hud-frame::before { top:-1px; left:-1px; border-top:2px solid var(--accent); border-left:2px solid var(--accent); }
+  .hud-frame::after  { bottom:-1px; right:-1px; border-bottom:2px solid var(--accent); border-right:2px solid var(--accent); }
+  .hud-frame.amber::before, .hud-frame.amber::after { border-color: var(--value); }
+  /* eyebrow mono cho readout HUD */
+  .hud-lbl { font-family:"Share Tech Mono", ui-monospace, monospace; font-size:10px; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--text-muted); }
+
+  /* Button */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+    padding: 0.5rem 0.9rem; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.8125rem;
+    border: 1px solid var(--border-default); color: var(--text-secondary); background: var(--surface-3);
+    transition: all 0.15s ease, transform 0.15s ease; cursor: pointer; user-select: none;
+  }
+  .btn:hover {
+    border-color: rgba(var(--cyan-rgb),0.50);
+    color: var(--ink-bright);
+    background: rgba(var(--cyan-rgb),0.07);
+    transform: scale(1.02);
+  }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  .btn-primary {
+    color: var(--on-accent); font-weight: 700;
+    background: linear-gradient(180deg, var(--cyan-hi), var(--cyan-lo));
+    border: 1px solid rgba(var(--cyan-rgb),0.60);
+    box-shadow: var(--glow-accent);
+  }
+  .btn-primary:hover {
+    background: linear-gradient(180deg, var(--cyan-hover-hi), var(--cyan-hover-lo));
+    box-shadow: 0 0 26px rgba(var(--cyan-rgb),0.45);
+  }
+  .btn-icon { padding: 0.5rem; width: 2.3rem; height: 2.3rem; }
+
+  /* Form */
+  .input {
+    width: 100%; background: var(--surface-3); border: 1px solid var(--border-default);
+    border-radius: var(--radius-sm); padding: 0.6rem 0.8rem; color: var(--text-primary); outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s; font-family: Inter, sans-serif;
+  }
+  .input:focus {
+    border-color: rgba(var(--cyan-rgb),0.60);
+    box-shadow: 0 0 0 3px rgba(var(--cyan-rgb),0.12);
+  }
+  .input::placeholder { color: var(--inkfaint); }
+
+  /* Chip / badge — base + biến thể semantic (tint bg + border + text cùng vai) */
+  .chip {
+    display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.15rem 0.55rem;
+    border-radius: 999px; font-size: 0.6875rem; font-weight: 500; line-height: 1.4;
+    border: 1px solid var(--border-default); color: var(--text-secondary);
+  }
+  .chip-accent  { background: rgb(var(--cyan-ch)/0.12);  border-color: rgb(var(--cyan-ch)/0.35);  color: var(--accent); }
+  .chip-value   { background: rgb(var(--gold-ch)/0.12);  border-color: rgb(var(--gold-ch)/0.35);  color: var(--value); }
+  .chip-success { background: rgb(var(--grn-ch)/0.12);   border-color: rgb(var(--grn-ch)/0.35);   color: var(--success); }
+  .chip-warning { background: rgb(var(--amber-ch)/0.12); border-color: rgb(var(--amber-ch)/0.35); color: var(--warning); }
+  .chip-danger  { background: rgb(var(--rose-ch)/0.12);  border-color: rgb(var(--rose-ch)/0.35);  color: var(--danger); }
+
+  /* Nhãn eyebrow (uppercase tracked) — chuẩn hoá section label */
+  .eyebrow { font-family: "Space Grotesk", sans-serif; font-size: 0.6875rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+
+  /* Skeleton shimmer (loading) */
+  .skeleton { position: relative; overflow: hidden; background: var(--surface-3); border-radius: var(--radius-sm); }
+  .skeleton::after { content:""; position:absolute; inset:0; transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.05), transparent);
+    animation: skeleton-shimmer 1.4s infinite; }
+  @keyframes skeleton-shimmer { to { transform: translateX(100%); } }
+
+  /* Tabs */
+  .tabs {
+    height: 44px; display: flex; align-items: stretch;
+    border-bottom: 1px solid var(--line); background: var(--surface-tabs);
+    padding: 0 0.25rem; overflow-x: auto; scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    flex: 1; height: 100%; min-width: max-content;
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    font-weight: 500; font-size: 0.875rem; color: var(--inkfaint);
+    background: transparent; border: none; border-bottom: 2px solid transparent;
+    cursor: pointer; transition: color 0.15s, border-color 0.15s;
+    user-select: none; padding: 0 0.75rem;
+  }
+  .tab-btn:hover { color: var(--ink); }
+  .tab-btn.active { color: var(--cyan); border-bottom-color: var(--cyan); font-weight: 600; }
+  .tab-icon { font-size: 16px; line-height: 1; }
+
+  /* Switch toggle */
+  .switch {
+    position: relative; width: 36px; height: 20px; border-radius: 999px;
+    background: rgba(var(--white-rgb),0.08); border: 1px solid var(--line);
+    transition: 0.18s; cursor: pointer; flex-shrink: 0;
+  }
+  .switch[data-on="true"] {
+    background: linear-gradient(90deg, var(--cyan-lo), var(--grn));
+    border-color: transparent;
+  }
+  .switch::after {
+    content: ""; position: absolute; top: 1px; left: 1px;
+    width: 16px; height: 16px; border-radius: 999px;
+    background: var(--ink-bright); transition: 0.18s;
+  }
+  .switch[data-on="true"]::after { transform: translateX(16px); }
+}
+
+/* ── Toast notifications ────────────────────────────────────────────────── */
+#lucy-toast-container {
+  position: fixed; bottom: 1.5rem; right: 1.5rem;
+  z-index: var(--z-toast);
+  display: flex; flex-direction: column-reverse; gap: 0.5rem;
+  pointer-events: none;
+}
+
+.toast {
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  max-width: 340px;
+  border: 1px solid;
+  backdrop-filter: blur(10px);
+  transform: translateY(8px);
+  opacity: 0;
+  transition: transform 0.2s cubic-bezier(0.4,0,0.2,1), opacity 0.2s ease;
+}
+.toast.toast-in   { transform: translateY(0); opacity: 1; }
+.toast.toast-exit { transition-duration: 0.15s; }
+
+.toast-success { background: rgba(var(--grn-rgb),0.13); border-color: rgba(var(--grn-rgb),0.40); color: var(--grn); }
+.toast-error   { background: rgba(var(--red-rgb),0.13); border-color: rgba(var(--red-rgb),0.40); color: var(--red-light); }
+.toast-info    { background: rgba(var(--cyan-rgb),0.13); border-color: rgba(var(--cyan-rgb),0.40); color: var(--cyan-light); }
+
+/* ── NoteEditor rich-text body ──────────────────────────────────────────── */
+.note-editor-body {
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  caret-color: var(--cyan);
+}
+.note-editor-body:empty::before {
+  content: "Bắt đầu gõ ghi chú…";
+  color: var(--inkfaint);
+  pointer-events: none;
+}
+.note-editor-body h1 { font-size: 1.6rem; font-weight: 700; color: var(--ink-bright); margin: 0.8rem 0 0.4rem; }
+.note-editor-body h2 { font-size: 1.2rem; font-weight: 600; color: var(--ink-bright); margin: 0.6rem 0 0.3rem; }
+.note-editor-body b, .note-editor-body strong { color: var(--ink-bright); }
+.note-editor-body a  { color: var(--cyan); text-decoration: underline; }
+.note-editor-body ul { list-style: disc;   padding-left: 1.5rem; margin: 0.4rem 0; }
+.note-editor-body ol { list-style: decimal; padding-left: 1.5rem; margin: 0.4rem 0; }
+.note-editor-body ul ul,
+.note-editor-body ol ol,
+.note-editor-body ul ol,
+.note-editor-body ol ul { margin: 0; }
+.note-editor-body img    { max-width: 100%; border-radius: 6px; margin: 0.4rem 0; display: block; }
+.note-editor-body iframe { max-width: 100%; border-radius: 6px; margin: 0.6rem 0; }
+.note-editor-body video  { max-width: 100%; border-radius: 6px; margin: 0.6rem 0; }
+
+/* ── Markdown ───────────────────────────────────────────────────────────── */
+.md { font-size: 13.5px; line-height: 1.6; }
+.md > :first-child { margin-top: 0; }
+.md > :last-child  { margin-bottom: 0; }
+.md p { margin: 0.4rem 0; }
+.md h1, .md h2, .md h3 {
+  color: var(--cyan-light); font-weight: 700; margin: 0.7rem 0 0.3rem;
+  line-height: 1.3; font-family: Inter, sans-serif;
+}
+.md h1 { font-size: 1.15rem; }
+.md h2 { font-size: 1.05rem; }
+.md h3 { font-size: 0.98rem; }
+.md a { color: var(--grn); text-decoration: underline; text-underline-offset: 2px; }
+.md strong { color: var(--ink-white); font-weight: 700; }
+.md em { color: var(--cyan-code); }
+.md ul { list-style: disc;    margin: 0.4rem 0 0.4rem 1.3rem; }
+.md ol { list-style: decimal; margin: 0.4rem 0 0.4rem 1.3rem; }
+.md li { margin: 0.15rem 0; }
+.md code {
+  background: rgba(var(--cyan-rgb),0.12); color: var(--cyan-light);
+  padding: 0.06rem 0.32rem; border-radius: 5px;
+  font-family: "Share Tech Mono", monospace; font-size: 0.9em;
+}
+.md pre {
+  background: var(--code-bg); border: 1px solid var(--line);
+  padding: 0.7rem 0.8rem; margin: 0.5rem 0; overflow-x: auto; border-radius: 10px;
+}
+.md pre code { background: none; color: var(--cyan-code); padding: 0; }
+.md blockquote {
+  border-left: 3px solid rgba(var(--grn-rgb),0.60);
+  padding-left: 0.7rem; color: var(--ink-em); margin: 0.5rem 0;
+}
+.md table { border-collapse: collapse; margin: 0.5rem 0; font-size: 0.9em; width: 100%; }
+.md th, .md td { border: 1px solid var(--line); padding: 0.3rem 0.6rem; text-align: left; }
+.md th { color: var(--cyan-light); background: rgba(var(--cyan-rgb),0.06); }
+.md hr { border: none; border-top: 1px solid var(--line); margin: 0.7rem 0; }
+
+/* ── Utility ────────────────────────────────────────────────────────────── */
+@keyframes slide-in-item {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.note-item { animation: slide-in-item 0.2s ease both; }
+
+@keyframes modal-enter {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.modal-card { animation: modal-enter 0.2s cubic-bezier(0.4,0,0.2,1) both; }

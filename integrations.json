@@ -1,0 +1,15 @@
+[
+  { "id": "grok", "label": "Grok (xAI)", "zone": "z_agents", "group": "model", "status": "planned" },
+  { "id": "gemini", "label": "Gemini Vision", "zone": "z_agents", "group": "model", "status": "planned" },
+
+  { "id": "cmc", "label": "CoinMarketCap", "zone": "z_money", "group": "api", "status": "planned" },
+  { "id": "coins", "label": "Coin Watchlist", "zone": "z_money", "group": "api", "status": "planned" },
+  { "id": "gold", "label": "Gold XAU/SJC", "zone": "z_money", "group": "api", "status": "planned" },
+  { "id": "stocks", "label": "Chứng khoán", "zone": "z_money", "group": "api", "status": "planned" },
+  { "id": "research", "label": "Research Cron", "zone": "z_money", "group": "api", "status": "planned" },
+
+  { "id": "brief", "label": "Brief sáng", "zone": "z_channels", "group": "channel", "status": "planned" },
+
+  { "id": "github", "label": "GitHub", "zone": "z_dev", "group": "api", "status": "planned" },
+  { "id": "hf", "label": "HuggingFace", "zone": "z_dev", "group": "api", "status": "planned" }
+]

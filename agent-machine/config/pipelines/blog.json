@@ -1,0 +1,8 @@
+{
+  "id": "blog",
+  "name": "Blog site",
+  "stages": [
+    { "id": "build", "name": "Dựng trang blog", "personaId": "builder" },
+    { "id": "review", "name": "Review", "personaId": "reviewer", "gate": true }
+  ]
+}

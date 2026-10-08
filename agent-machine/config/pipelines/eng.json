@@ -1,0 +1,7 @@
+{
+  "id": "eng",
+  "name": "Engineer subtask",
+  "stages": [
+    { "id": "fix", "name": "Fix render web", "personaId": "engineer" }
+  ]
+}

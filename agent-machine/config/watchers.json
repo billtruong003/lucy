@@ -1,0 +1,97 @@
+[
+  {
+    "id": "coordinator-health",
+    "name": "Coordinator HTTP health",
+    "kind": "health",
+    "enabled": true,
+    "params": {
+      "url": "http://127.0.0.1:8780/health"
+    },
+    "cooldownMin": 30
+  },
+  {
+    "id": "disk-root",
+    "name": "Disk space / root",
+    "kind": "disk",
+    "enabled": true,
+    "params": {
+      "path": "/",
+      "maxPercent": 85
+    },
+    "cooldownMin": 120
+  },
+  {
+    "id": "bridge-process",
+    "name": "Lucy bridge process (lucy_bridge.py)",
+    "kind": "process",
+    "enabled": true,
+    "params": {
+      "name": "lucy_bridge.py"
+    },
+    "cooldownMin": 15
+  },
+  {
+    "id": "btc-above",
+    "name": "BTC vuot nguong cao",
+    "kind": "price",
+    "enabled": false,
+    "params": {
+      "coinGeckoId": "bitcoin",
+      "symbol": "BTC",
+      "above": 120000
+    },
+    "cooldownMin": 240
+  },
+  {
+    "id": "btc-below",
+    "name": "BTC xuong nguong thap",
+    "kind": "price",
+    "enabled": false,
+    "params": {
+      "coinGeckoId": "bitcoin",
+      "symbol": "BTC",
+      "below": 80000
+    },
+    "cooldownMin": 240
+  },
+  {
+    "id": "eth-above",
+    "name": "ETH vuot nguong cao",
+    "kind": "price",
+    "enabled": false,
+    "params": {
+      "coinGeckoId": "ethereum",
+      "symbol": "ETH",
+      "above": 5000
+    },
+    "cooldownMin": 240
+  },
+  {
+    "id": "btc-rsi",
+    "name": "BTC RSI(14)",
+    "kind": "rsi",
+    "enabled": true,
+    "params": {
+      "coinGeckoId": "bitcoin",
+      "symbol": "BTC",
+      "period": 14,
+      "oversoldBelow": 30,
+      "overboughtAbove": 70
+    },
+    "cooldownMin": 720
+  },
+  {
+    "id": "eth-rsi",
+    "name": "ETH RSI(14)",
+    "kind": "rsi",
+    "enabled": false,
+    "params": {
+      "coinGeckoId": "ethereum",
+      "symbol": "ETH",
+      "period": 14,
+      "oversoldBelow": 30,
+      "overboughtAbove": 70
+    },
+    "cooldownMin": 720
+  }
+]

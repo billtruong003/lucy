@@ -1,0 +1,8 @@
+{
+  "id": "secure-ship",
+  "name": "Secure → Ship",
+  "stages": [
+    { "id": "secure", "name": "Rà bảo mật", "personaId": "security", "gate": true },
+    { "id": "ship", "name": "Deploy / release", "personaId": "devops", "gate": true }
+  ]
+}

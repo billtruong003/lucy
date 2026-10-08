@@ -1,0 +1,19 @@
+# Lucy Hub — nginx reverse proxy. Copy -> /etc/nginx/sites-available/lucy, sửa domain, symlink sang sites-enabled.
+# Sau đó: nginx -t && systemctl reload nginx ; rồi certbot --nginx -d lucy.example.com (tự thêm 443 + redirect).
+server {
+    listen 80;
+    server_name lucy.example.com;   # ĐỔI domain của anh (hoặc IP)
+
+    client_max_body_size 5m;
+
+    location / {
+        proxy_pass http://127.0.0.1:8800;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 1200s;   # claude job có thể lâu
+        proxy_send_timeout 1200s;
+    }
+}

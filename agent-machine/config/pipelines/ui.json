@@ -1,0 +1,9 @@
+{
+  "id": "ui",
+  "name": "UI / UX (frontend)",
+  "stages": [
+    { "id": "design", "name": "Thiết kế UI/UX", "personaId": "designer" },
+    { "id": "build", "name": "Code giao diện", "personaId": "builder" },
+    { "id": "review", "name": "Review chất lượng & duyệt", "personaId": "reviewer", "gate": true }
+  ]
+}

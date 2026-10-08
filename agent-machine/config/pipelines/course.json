@@ -1,0 +1,9 @@
+{
+  "id": "course",
+  "name": "Portal course",
+  "stages": [
+    { "id": "draft", "name": "Soạn nội dung course", "personaId": "writer" },
+    { "id": "review", "name": "Review & test", "personaId": "reviewer", "gate": true },
+    { "id": "ship", "name": "Xuất bản", "personaId": "writer" }
+  ]
+}

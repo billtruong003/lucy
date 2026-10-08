@@ -1,0 +1,8 @@
+{
+  "id": "research",
+  "name": "Research / Root-cause",
+  "stages": [
+    { "id": "investigate", "name": "Điều tra & dựng bằng chứng", "personaId": "investigator" },
+    { "id": "plan", "name": "Vạch hướng từ kết quả", "personaId": "architect", "gate": true }
+  ]
+}

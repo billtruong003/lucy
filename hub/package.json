@@ -1,0 +1,12 @@
+{
+  "name": "lucy-hub",
+  "private": true,
+  "description": "Lucy Hub — web command center (React + Node, full JS/TS)",
+  "scripts": {
+    "setup": "cd web && npm install && cd ../server && npm install",
+    "build": "cd web && npm run build",
+    "start": "cd server && npm start",
+    "dev:web": "cd web && npm run dev",
+    "dev:server": "cd server && npm run dev"
+  }
+}

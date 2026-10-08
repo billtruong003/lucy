@@ -1,0 +1,392 @@
+{
+  "_comment": "AUTO-SINH bởi src/gen-catalog.ts từ llm-lane.MODEL_CATALOG + chat-lane.ROUTE_TABLE. ĐỪNG sửa tay — chạy `npm run gen:catalog`.",
+  "version": 1,
+  "providers": {
+    "openrouter": {
+      "id": "openrouter",
+      "label": "OpenRouter",
+      "baseUrl": "https://openrouter.ai/api/v1"
+    },
+    "groq": {
+      "id": "groq",
+      "label": "Groq",
+      "baseUrl": "https://api.groq.com/openai/v1"
+    },
+    "gemini": {
+      "id": "gemini",
+      "label": "Gemini",
+      "baseUrl": "https://generativelanguage.googleapis.com/v1beta/openai"
+    },
+    "cerebras": {
+      "id": "cerebras",
+      "label": "Cerebras",
+      "baseUrl": "https://api.cerebras.ai/v1"
+    },
+    "mistral": {
+      "id": "mistral",
+      "label": "Mistral",
+      "baseUrl": "https://api.mistral.ai/v1"
+    },
+    "opencode-zen": {
+      "id": "opencode-zen",
+      "label": "OpenCode Zen",
+      "baseUrl": "https://opencode.ai/zen/v1"
+    },
+    "zai": {
+      "id": "zai",
+      "label": "Z.ai",
+      "baseUrl": "https://api.z.ai/api/paas/v4"
+    },
+    "nous": {
+      "id": "nous",
+      "label": "Nous Portal",
+      "baseUrl": "https://inference-api.nousresearch.com/v1"
+    }
+  },
+  "models": [
+    {
+      "key": "ds-v4-flash-free",
+      "label": "DeepSeek V4 Flash (free)",
+      "provider": "opencode-zen",
+      "model": "deepseek-v4-flash-free",
+      "role": "executor",
+      "free": true,
+      "ctx": "1M",
+      "note": "reasoning — cấp max_tokens cao"
+    },
+    {
+      "key": "devstral-med",
+      "label": "Devstral Medium",
+      "provider": "mistral",
+      "model": "devstral-medium-latest",
+      "role": "executor",
+      "free": true,
+      "note": "agentic coding của Mistral"
+    },
+    {
+      "key": "codestral",
+      "label": "Codestral 2508",
+      "provider": "mistral",
+      "model": "codestral-2508",
+      "role": "executor",
+      "free": true,
+      "note": "code-specialized"
+    },
+    {
+      "key": "ds-v4-flash",
+      "label": "DeepSeek V4 Flash",
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-v4-flash",
+      "role": "executor",
+      "free": false,
+      "ctx": "1M"
+    },
+    {
+      "key": "ds-chat",
+      "label": "DeepSeek Chat",
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-chat",
+      "role": "fast",
+      "free": false,
+      "ctx": "64k",
+      "note": "non-reasoning rẻ — structural/refine (Prompt Architect)"
+    },
+    {
+      "key": "or-nemotron-super",
+      "label": "Nemotron 3 Super 120B",
+      "provider": "openrouter",
+      "model": "nvidia/nemotron-3-super-120b-a12b:free",
+      "role": "executor",
+      "free": true,
+      "ctx": "1M",
+      "note": "free + tool-calling, nhanh (verify 2026-06-12)"
+    },
+    {
+      "key": "or-gptoss-120b",
+      "label": "GPT-OSS 120B (OpenRouter free)",
+      "provider": "openrouter",
+      "model": "openai/gpt-oss-120b:free",
+      "role": "executor",
+      "free": true,
+      "ctx": "131k",
+      "note": "free + tool-calling"
+    },
+    {
+      "key": "mimo-v2.5-free",
+      "label": "MiMo V2.5 Free",
+      "provider": "opencode-zen",
+      "model": "mimo-v2.5-free",
+      "role": "executor",
+      "free": true,
+      "ctx": "256k",
+      "note": "vision+code, xiaomi/mimo-v2.5 — OpenCode Zen free (live OK 2026-06-19)"
+    },
+    {
+      "key": "minimax-m3-free",
+      "label": "MiniMax M3 Free",
+      "provider": "opencode-zen",
+      "model": "minimax-m3-free",
+      "role": "executor",
+      "free": false,
+      "ctx": "1M",
+      "note": "⛔ 401 \"Free promotion ended\" (verify live 2026-06-19, cần OpenCode Go) → ĐỪNG route; ABF fallback ds-v4-flash-free"
+    },
+    {
+      "key": "ds-v4-pro",
+      "label": "DeepSeek V4 Pro",
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-v4-pro",
+      "role": "reasoning",
+      "free": false,
+      "ctx": "1M",
+      "note": "S-tier reasoning+code"
+    },
+    {
+      "key": "groq-gptoss-120b",
+      "label": "GPT-OSS 120B (Groq)",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "role": "fast",
+      "free": true,
+      "note": "mạnh + nhanh, free"
+    },
+    {
+      "key": "cerebras-glm-47",
+      "label": "GLM-4.7 (Cerebras)",
+      "provider": "cerebras",
+      "model": "zai-glm-4.7",
+      "role": "fast",
+      "free": true,
+      "note": "cực nhanh, cap ctx 8K"
+    },
+    {
+      "key": "cerebras-gptoss",
+      "label": "GPT-OSS 120B (Cerebras)",
+      "provider": "cerebras",
+      "model": "gpt-oss-120b",
+      "role": "fast",
+      "free": true,
+      "note": "cap ctx 8K"
+    },
+    {
+      "key": "groq-llama-70b",
+      "label": "Llama 3.3 70B (Groq)",
+      "provider": "groq",
+      "model": "llama-3.3-70b-versatile",
+      "role": "fast",
+      "free": true,
+      "note": "classify/chat"
+    },
+    {
+      "key": "gemini-flash",
+      "label": "Gemini 3 Flash",
+      "provider": "gemini",
+      "model": "gemini-3-flash-preview",
+      "role": "content",
+      "free": true,
+      "note": "1500 RPD"
+    },
+    {
+      "key": "mistral-large",
+      "label": "Mistral Large",
+      "provider": "mistral",
+      "model": "mistral-large-latest",
+      "role": "content",
+      "free": true
+    },
+    {
+      "key": "nous-opus-fast",
+      "label": "Claude Opus 4.8 Fast (Nous)",
+      "provider": "nous",
+      "model": "anthropic/claude-opus-4.8-fast",
+      "role": "reasoning",
+      "free": false,
+      "note": "orchestrator: Claude xịn + streaming, rẻ hơn claude -p"
+    },
+    {
+      "key": "nous-opus",
+      "label": "Claude Opus 4.8 (Nous)",
+      "provider": "nous",
+      "model": "anthropic/claude-opus-4.8",
+      "role": "reasoning",
+      "free": false,
+      "note": "Opus mạnh nhất, không fast"
+    },
+    {
+      "key": "nous-sonnet",
+      "label": "Claude Sonnet 4.6 (Nous)",
+      "provider": "nous",
+      "model": "anthropic/claude-sonnet-4.6",
+      "role": "reasoning",
+      "free": false,
+      "note": "chat nhanh"
+    },
+    {
+      "key": "nous-fable",
+      "label": "Claude Fable 5 (Nous)",
+      "provider": "nous",
+      "model": "anthropic/claude-fable-5",
+      "role": "reasoning",
+      "free": false,
+      "note": "model \"5\" mạnh nhất — đắt ($10/$50), chưa verify Nous phục vụ"
+    },
+    {
+      "key": "nous-haiku",
+      "label": "Claude Haiku 4.5 (Nous)",
+      "provider": "nous",
+      "model": "anthropic/claude-haiku-4.5",
+      "role": "fast",
+      "free": false,
+      "note": "nhanh/rẻ cho task đơn giản"
+    },
+    {
+      "key": "nous-nemotron-ultra",
+      "label": "Nemotron 3 Ultra 550B (Nous)",
+      "provider": "nous",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "role": "reasoning",
+      "free": false,
+      "ctx": "1M",
+      "note": "router xịn nhất"
+    },
+    {
+      "key": "nous-nemotron-free",
+      "label": "Nemotron 3 Ultra (Nous free)",
+      "provider": "nous",
+      "model": "nvidia/nemotron-3-ultra:free",
+      "role": "reasoning",
+      "free": true,
+      "ctx": "1M",
+      "note": "router free"
+    },
+    {
+      "key": "nous-hermes-405b",
+      "label": "Hermes 4 405B (Nous)",
+      "provider": "nous",
+      "model": "nousresearch/hermes-4-405b",
+      "role": "reasoning",
+      "free": false,
+      "note": "model nhà Nous"
+    },
+    {
+      "key": "nous-ds-v4-pro",
+      "label": "DeepSeek V4 Pro (Nous)",
+      "provider": "nous",
+      "model": "deepseek/deepseek-v4-pro",
+      "role": "reasoning",
+      "free": false,
+      "ctx": "1M"
+    },
+    {
+      "key": "nous-qwen3-coder",
+      "label": "Qwen3 Coder Plus (Nous)",
+      "provider": "nous",
+      "model": "qwen/qwen3-coder-plus",
+      "role": "executor",
+      "free": false,
+      "note": "agentic coding"
+    },
+    {
+      "key": "nous-gpt-oss-120b",
+      "label": "GPT-OSS 120B (Nous)",
+      "provider": "nous",
+      "model": "openai/gpt-oss-120b",
+      "role": "fast",
+      "free": false
+    }
+  ],
+  "claudeModels": [
+    {
+      "key": "claude:opus",
+      "label": "Claude Opus 5.5",
+      "model": "claude-opus-5-5",
+      "tier": "deep",
+      "note": "mạnh nhất, mặc định",
+      "default": true
+    },
+    {
+      "key": "claude:sonnet",
+      "label": "Claude Sonnet 5.5",
+      "model": "claude-sonnet-5-5",
+      "tier": "balanced",
+      "note": "nhanh, cân bằng — hạ về đây cho tin vặt"
+    },
+    {
+      "key": "claude:fable",
+      "label": "Claude Fable 5.1",
+      "model": "claude-fable-5-1",
+      "tier": "deep",
+      "note": "thế hệ 5"
+    },
+    {
+      "key": "claude:haiku",
+      "label": "Claude Haiku 5.5",
+      "model": "claude-haiku-5-5",
+      "tier": "fast",
+      "note": "nhẹ/rẻ, việc đơn giản"
+    }
+  ],
+  "fallbacks": {
+    "executor": [
+      "mimo-v2.5-free",
+      "ds-v4-flash-free",
+      "or-nemotron-super",
+      "devstral-med",
+      "or-gptoss-120b",
+      "ds-v4-flash",
+      "codestral"
+    ],
+    "reasoning": [
+      "ds-v4-pro",
+      "ds-v4-flash",
+      "groq-gptoss-120b"
+    ],
+    "fast": [
+      "groq-gptoss-120b",
+      "cerebras-glm-47",
+      "groq-llama-70b"
+    ],
+    "content": [
+      "gemini-flash",
+      "mistral-large",
+      "groq-gptoss-120b"
+    ]
+  },
+  "routeTable": {
+    "router": [
+      "or-nemotron-super",
+      "ds-v4-flash-free",
+      "groq-gptoss-120b",
+      "gemini-flash"
+    ],
+    "agentic-code": [
+      "devstral-med",
+      "or-nemotron-super",
+      "ds-v4-flash-free",
+      "codestral"
+    ],
+    "reasoning": [
+      "ds-v4-flash-free",
+      "or-nemotron-super",
+      "groq-gptoss-120b"
+    ],
+    "long-context": [
+      "or-nemotron-super",
+      "ds-v4-flash-free"
+    ],
+    "tool-calling": [
+      "gemini-flash",
+      "or-nemotron-super",
+      "groq-gptoss-120b"
+    ],
+    "fast-classify": [
+      "cerebras-glm-47",
+      "groq-llama-70b",
+      "groq-gptoss-120b"
+    ],
+    "content": [
+      "gemini-flash",
+      "mistral-large"
+    ]
+  }
+}

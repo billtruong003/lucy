@@ -1,0 +1,20 @@
+{"id":"b01","zone":"indexed","q":"Màu gold trong theme Jarvis Cockpit của hub là mã hex nào?","expect_path":"Brain/claude-memory/jarvis-cockpit-theme-tokens.md","expect_substr":"#f5b54a"}
+{"id":"b02","zone":"indexed","q":"nginx serve trang báo cáo brief thị trường từ thư mục nào trên VPS?","expect_path":"Brain/claude-memory/daily-brief-setup.md","expect_substr":"/var/www/lucy-reports"}
+{"id":"b03","zone":"indexed","q":"Skill store của Lucy có bao nhiêu skill bundled Hermes?","expect_path":"Brain/claude-memory/skill-engine-t6.md","expect_substr":"170 skill"}
+{"id":"b04","zone":"indexed","q":"Gateway OmniRoute của Lucy có bao nhiêu provider free?","expect_path":"Projects/LUCY.md","expect_substr":"7 provider free"}
+{"id":"b05","zone":"indexed","q":"Model free nào đang là primary của Auto-Build-Free trên OpenCode Zen?","expect_path":"Projects/free-model-benchmark-strategy.md","expect_substr":"mimo-v2.5-free"}
+{"id":"b06","zone":"indexed","q":"Cổng dự án Lucy portal gom link dự án ở route nào?","expect_path":"Projects/lucy-portal-sprint.md","expect_substr":"/lucy/"}
+{"id":"b07","zone":"indexed","q":"Triết lý sản phẩm của Web Studio modular admin là thiết kế theo hướng nào?","expect_path":"Projects/web-studio-modular-admin-design.md","expect_substr":"admin-first"}
+{"id":"b08","zone":"indexed","q":"Lucy là trợ lý của ai và vai trò chính là gì?","expect_path":"Context/LUCY-IDENTITY.md","expect_substr":"trợ lý cá nhân của Bill"}
+{"id":"b09","zone":"indexed","q":"Chủ nhân thích được cung cấp thông tin dưới dạng nào cho dễ theo dõi?","expect_path":"Context/USER.md","expect_substr":"bullet point"}
+{"id":"b10","zone":"indexed","q":"Master plan Autonomous Dev Manager có bao nhiêu task chờ Bill duyệt?","expect_path":"Brain/claude-memory/lucy-autonomous-manager-plan.md","expect_substr":"19 task"}
+{"id":"u01","zone":"unindexed","q":"Kỹ thuật outline inverted-hull trong URP phình vertex theo công thức nào?","expect_path":"Reference/unity-urp/urp-outlines-techniques.md","expect_substr":"posWS += normalWS * width"}
+{"id":"u02","zone":"unindexed","q":"Não nghề persona eng ghi bài học tránh lỗi X ở file nào?","expect_path":"Brain/agents/eng.md","expect_substr":"foo.ts:10"}
+{"id":"u03","zone":"unindexed","q":"Đề xuất tách lucy-vault thành repo private gắn vào Lucy bằng cơ chế git nào?","expect_path":"Brain/proposals/2026-06-16-vault-submodule-backup.md","expect_substr":"git submodule"}
+{"id":"u04","zone":"unindexed","q":"Trend nostalgia nào nóng nhất trong báo cáo trend content ngày 14/06/2026?","expect_path":"Reports/trend-content-2026-06-14.md","expect_substr":"2026 is the new 2016"}
+{"id":"u05","zone":"unindexed","q":"Ai là người xây Lucy theo bản tóm tắt để đăng LinkedIn?","expect_path":"Brain/lucy-linkedin-summary.md","expect_substr":"Bill Truong"}
+{"id":"u06","zone":"unindexed","q":"Thiết kế context-memory tách hội thoại thành 2 loại khác bản chất, loại nén thoải mái gọi là gì?","expect_path":"Brain/proposals/2026-06-19-context-memory-design.md","expect_substr":"PROSE"}
+{"id":"u07","zone":"unindexed","q":"Shader VFX transparent trong URP có cần pass ShadowCaster hay DepthNormals không?","expect_path":"Reference/unity-urp/urp-vfx-techniques.md","expect_substr":"ShadowCaster/DepthNormals"}
+{"id":"u08","zone":"unindexed","q":"Render pass Unity 6 URP 17 RenderGraph phải override method nào thay cho Execute cũ?","expect_path":"Reference/unity-urp/render-graph-renderer-feature.md","expect_substr":"RecordRenderGraph"}
+{"id":"u09","zone":"unindexed","q":"Nghiên cứu nền cho đề xuất kiến trúc trí nhớ Lucy đã kiểm chứng bao nhiêu claim?","expect_path":"Brain/proposals/2026-06-14-lucy-memory-architecture.md","expect_substr":"100 claim đã kiểm chứng"}
+{"id":"u10","zone":"unindexed","q":"Dream ngày 2026-06-12 graduate preference nào có topic default/loopy?","expect_path":"Brain/log/2026-06-12.md","expect_substr":"pref-default-loopy"}

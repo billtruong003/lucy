@@ -1,0 +1,78 @@
+# secrets — never commit
+.env
+.env.*
+!.env.example
+
+# runtime
+node_modules/
+dist/
+*.log
+logs/
+
+# hub state bền (2FA secret, schedules, log, lịch sử chat) — KHÔNG commit
+hub/.state/
+.lucy-*.json
+
+# MeloTTS self-host (đã bỏ voice) — venv + checkpoint nặng, không commit
+melotts-vi/.venv/
+melotts-vi/checkpoints/
+melotts-vi/samples_voices/
+melotts-vi/*.wav
+
+# upstream Hermes Agent source (cloned for reference, not Bill's code — cài thật trên VPS qua installer)
+hermes-agent/
+
+# research output (data, not code) — decide later if you want it tracked
+research/*.md
+!research/.gitkeep
+
+# voice model weights / audio samples (large)
+voice/models/
+voice/samples/
+*.wav
+*.mp3
+
+# claude code local settings (per-subproject)
+**/.claude/
+
+# python bytecode + backup files (junk)
+__pycache__/
+*.pyc
+*.bak
+*.bak-*
+
+# os / editor
+.DS_Store
+Thumbs.db
+.persona.md
+lucy.config.cjs
+ecosystem.local.cjs
+open-hub-lan.bat
+.gcp-oauth.json
+
+# secret files (thêm 2026-06-20 trước khi push — KHÔNG commit)
+*LOGIN.txt
+*-keys
+.opencode-zen-keys
+*.keys
+fitcity-admin-LOGIN.txt
+
+# vault → repo riêng lucy-vault-backup (private)
+lucy-vault/
+.env.runtime-snapshot
+
+# --- cleanup 2026-10: runtime data & rác không thuộc repo ---
+*.log.*
+.env.runtime
+.state/
+tasks/
+references/
+**/.gitnexus/
+**/.smoke/
+**/__pycache__/
+*.bak
+*.bak-*
+skills/_proposed/
+agent-machine/config/watcher-state.json
+!.env.*.example
+!**/.env.example
