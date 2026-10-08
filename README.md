@@ -1,50 +1,55 @@
-# L.U.C.Y — Personal AI Agent OS
+# Lucy
 
-> Trợ lý cá nhân của Bill: **biết rõ m + mọi dự án, tự làm việc bằng nhiều agent, chạm cả tech-life
-> (code/mail/lịch/file/web), tự giỏi lên, chạy cả khi m ngủ — lái từ điện thoại.**
-> Chat qua Telegram (bridge → Claude Agent SDK), web cockpit always-on trên VPS.
+**A self-hosted personal AI agent powered by Claude.** You chat with Lucy from Telegram or a web hub. It remembers you and your projects in a Markdown vault, splits larger jobs across a board of specialist agents, uses tools, skills and MCP servers, and runs scheduled work while you sleep.
 
-> 📖 **Single source of truth → [docs/NORTH_STAR.md](docs/NORTH_STAR.md).** Đọc cái đó trước mọi thứ.
+[Tiếng Việt](#tiếng-việt) · [Documentation](website/guide/introduction.md)
 
-**Trạng thái (2026-10-08):** đang chạy hằng ngày trên VPS (Telegram + web cockpit). Đã dọn repo, gom cấu hình PM2 về một nguồn, siết bảo mật đăng nhập/Telegram và nâng model lên Claude 5.5. Cách vận hành hiện tại: **[docs/OPERATIONS.md](docs/OPERATIONS.md)**.
+## What's inside
 
-## Kiến trúc (gọn)
-```
-📱 Telegram ──► lucy-bridge (VPS) ──claude -p──► agent-machine (card-engine, multi-persona)
-                     │                                  │ --add-dir
-                 lucy-hub (web cockpit)            lucy-vault/  (bộ não: Context · Brain · Projects)
-                     │                                  │
-              Dashboard · Bộ não 🌌 · Board · Settings(lát API)   FTS5 recall + dream + galaxy
-```
-- **Não** = `claude -p` đi thẳng Anthropic (không proxy). **Lát rẻ** = `agent-machine/src/llm-lane.ts` (7 provider free) cho executor.
-- **Nhớ** = `lucy-vault/` (git-tracked markdown, mở được bằng Obsidian).
+| Component | Path | Role |
+|---|---|---|
+| Telegram bridge | `bridge/` | Telegram ↔ Claude Agent SDK, persistent sessions, model picker, multi-agent commands |
+| Agent machine | `agent-machine/` | Coordinator API (memory recall, card board, model lanes, token guard), worker, autopilot |
+| Web hub | `hub/` | Web cockpit: chat, memory, board, schedules, tools, settings |
+| pxpipe | `pxpipe/` | Optional token-compression proxy for background agents |
+| Skills | `skills/` | Agent Skills library loaded by keyword |
+| Docs site | `website/` | VitePress documentation (English + Vietnamese) |
 
-## Docs
-| Doc | Nội dung |
-|---|---|
-| [docs/OPERATIONS.md](docs/OPERATIONS.md) ⭐ | Process, cấu hình env, lệnh vận hành, bảo mật đang áp dụng — **đọc đầu tiên** |
-| [docs/NORTH_STAR.md](docs/NORTH_STAR.md) | Viễn cảnh + lộ trình milestone |
-| [docs/AGENT_MACHINE.md](docs/AGENT_MACHINE.md) | Kiến trúc multi-agent card-engine |
-| [docs/MCP_ARCHITECTURE.md](docs/MCP_ARCHITECTURE.md) | Kiến trúc M2 (MCP) |
-| [docs/M1_MEMORY_SPEC.md](docs/M1_MEMORY_SPEC.md) · [docs/NEURAL_GALAXY.md](docs/NEURAL_GALAXY.md) · [docs/MEMORY_PEAK.md](docs/MEMORY_PEAK.md) | Hệ trí nhớ M1 + tinh hà + peak |
-| [docs/PROVIDER_MODELS.md](docs/PROVIDER_MODELS.md) · [docs/MODEL_COMPARISON.md](docs/MODEL_COMPARISON.md) · [docs/COST_MODEL.md](docs/COST_MODEL.md) | Lát API: model + benchmark + token |
-| [docs/DEPLOY_HUB.md](docs/DEPLOY_HUB.md) · [docs/REMOTE_CONTROL.md](docs/REMOTE_CONTROL.md) | Deploy hub + remote |
-| [docs/_outdated/](docs/_outdated/) | Plan/sprint/handoff cũ, nghiên cứu Hermes — giữ để tra lại |
+Long-term memory lives in a separate Markdown vault repository that you create (see [Memory](website/guide/memory.md)).
 
-## Folder
-```
-LUCY/
-├── docs/          # tài liệu — NORTH_STAR.md là gốc
-├── bridge/        # Telegram → claude -p (Python)
-├── agent-machine/ # card-engine TS (recall/dream/signal/llm-lane/coordinator)
-├── hub/           # web cockpit (server + web React)
-├── lucy-vault/    # bộ não markdown (Context · Brain · Projects)
-├── skills/        # custom Agent Skills (agentskills.io)
-├── pxpipe/        # proxy nén token (worker/autopilot)
-└── tools/         # script vận hành (vault-backup, env_drift, tavily, crypto…)
+## Quick start
+
+```bash
+git clone -b lucy-main https://github.com/billtruong003/lucy && cd lucy
+(cd agent-machine && npm ci) && (cd hub/server && npm ci) && (cd hub/web && npm ci && npm run build)
+cp .env.llm.example .env.llm; cp .env.runtime.example .env.runtime
+cp agent-machine/.env.example agent-machine/.env; cp bridge/.env.example bridge/.env
+# fill in the env files, then:
+pm2 start ecosystem.config.cjs && pm2 save
 ```
 
-## Kỷ luật
-🔐 Secret **chỉ nằm trong các file env trên VPS** (xem OPERATIONS.md), không paste chat, không `cat`, không ghi cứng trong code.
-🔁 1 nguồn sự thật = GitHub: dev ở local → push → VPS `git pull` + `pm2 restart`. Không sửa thẳng 2 nơi.
-🧠 Reindex galaxy/recall = `pm2 restart lucy-coordinator` (KHÔNG phải bridge/hub).
+Full walkthrough: [Installation](website/guide/installation.md) · [Configuration](website/guide/configuration.md).
+
+## Documentation
+
+Read it in the repo under [`website/guide`](website/guide/introduction.md), or run the site locally:
+
+```bash
+cd website && npm ci && npm run dev
+```
+
+## Status
+
+Lucy runs daily as a personal assistant. This branch is the cleaned codebase being prepared for an open-source release; expect rough edges and Vietnamese-first prompts. See [Security](website/guide/security.md) before exposing it to the internet.
+
+---
+
+## Tiếng Việt
+
+**Lucy là trợ lý AI cá nhân tự host, chạy trên Claude.** Bạn nhắn cho Lucy qua Telegram hoặc web hub. Lucy nhớ bạn và các dự án trong một vault Markdown, chia việc lớn cho nhiều agent chuyên môn trên bảng việc, dùng công cụ, skill, MCP server và chạy việc theo lịch.
+
+Tài liệu tiếng Việt: [`website/vi/guide`](website/vi/guide/introduction.md) · Chạy site: `cd website && npm ci && npm run dev`.
+
+## License
+
+MIT, see [LICENSE](LICENSE). Bundled third-party skills keep their own licenses (see `skills/README.md`).
